@@ -1,37 +1,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: loksai-deploy
+  name: csark-mvn-deploy
   labels:
-    app: loksai-mvn-app
+    app: csark-mvn-deploy
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: loksai-mvn-app
+      app: csark-mvn-deploy
   template:
     metadata:
       labels:
-        app: loksai-mvn-app
+        app: csark-mvn-deploy
     spec:
       containers:
-      - name: loksai-mvn-container
-        image: loksaieta/loksaidevops:v1.0
+      - name: csark-mvn-container
+        image: csark/java-mvn-app
         ports:
         - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: loksai-np-service
+  name: csark-mvn-np-service
   labels:
-    app: loksai-mvn-app
+    app: csark-mvn-deploy
 spec:
   selector:
-    app: loksai-mvn-app
+    app: csark-mvn-deploy
 
   type: NodePort
   ports:
-  - nodePort: 31000
+  - nodePort: 31200
     port: 8080
     targetPort: 8080
